@@ -230,7 +230,7 @@
   .nav-tabs {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 36px;
     flex-wrap: wrap;
     position: relative;
@@ -241,9 +241,9 @@
     background: transparent;
     border: 1px solid rgba(212, 175, 55, 0.35);
     color: var(--text-muted);
-    padding: 10px 20px;
+    padding: 9px 15px;
     font-family: 'Noto Serif KR', serif;
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     cursor: pointer;
     transition: all 0.3s ease;
   }
@@ -361,7 +361,6 @@
     transform: scale(1.04);
   }
 
-  /* 이미지가 없을 때 보이는 안내 문구 */
   .portrait-placeholder {
     padding: 12px;
     color: var(--text-muted);
@@ -429,6 +428,22 @@
     font-size: 0.92rem;
   }
 
+  /* 2열 영지 그리드 */
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .region-box {
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    background: rgba(13, 9, 12, 0.55);
+    padding: 16px;
+  }
+  .region-name { font-weight: 700; color: var(--gold-light); font-size: 0.98rem; margin-bottom: 4px; display: block; }
+  .region-tag { font-size: 0.75rem; color: #d9828b; display: block; margin-bottom: 6px; }
+  .region-desc { font-size: 0.86rem; color: var(--text-main); line-height: 1.6; margin: 0; }
+
   /* 용어 & 단계 리스트 */
   .guide-list {
     list-style: none;
@@ -476,6 +491,9 @@
       width: 200px;
       height: 270px;
     }
+    .region-grid {
+      grid-template-columns: 1fr;
+    }
     .parchment-card {
       padding: 32px 20px;
     }
@@ -483,8 +501,8 @@
       font-size: 1.65rem;
     }
     .tab-btn {
-      padding: 8px 12px;
-      font-size: 0.84rem;
+      padding: 8px 10px;
+      font-size: 0.82rem;
     }
     .bgm-control {
       top: 12px;
@@ -497,7 +515,7 @@
 </head>
 <body>
 
-  <!-- 배경음악(BGM) 오디오 태그: 깃허브 레포지토리에 bgm.mp3를 함께 올리시면 자동 연동됩니다 -->
+  <!-- 배경음악(BGM) 오디오 태그 -->
   <audio id="bg-music" loop preload="auto">
     <source src="bgm.mp3" type="audio/mpeg">
   </audio>
@@ -530,11 +548,13 @@
         <div class="d-day-badge">멸망까지 남은 시간 : 100일</div>
       </header>
 
-      <!-- 탭 메뉴 -->
+      <!-- 탭 메뉴 (원본 4개 + 조연/영지 2개 추가) -->
       <nav class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('synopsis', this)">초대 서신</button>
         <button class="tab-btn" onclick="switchTab('characters', this)">세 명의 마왕</button>
+        <button class="tab-btn" onclick="switchTab('subchars', this)">조연진</button>
         <button class="tab-btn" onclick="switchTab('world', this)">세계관 및 공정</button>
+        <button class="tab-btn" onclick="switchTab('regions', this)">핵심 영지</button>
         <button class="tab-btn" onclick="switchTab('tips', this)">공명과 추리</button>
       </nav>
 
@@ -562,7 +582,7 @@
         </p>
       </section>
 
-      <!-- TAB 2: 세 명의 마왕 (액자 프레임 포함) -->
+      <!-- TAB 2: 세 명의 마왕 -->
       <section id="characters" class="tab-content">
         <h2>Ⅱ. 심연에서 올라온 세 예비 신랑</h2>
 
@@ -570,7 +590,6 @@
         <div class="char-card">
           <div class="portrait-frame">
             <div class="portrait-inner">
-              <!-- 같은 폴더에 azazel.png 파일을 넣으면 자동 표시됩니다 -->
               <img src="azazel.png" alt="아자젤 초상화" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
               <div class="portrait-placeholder" style="display:none;">
                 <span>PORTRAIT I</span>
@@ -602,7 +621,6 @@
         <div class="char-card">
           <div class="portrait-frame">
             <div class="portrait-inner">
-              <!-- 같은 폴더에 malphas.png 파일을 넣으면 자동 표시됩니다 -->
               <img src="malphas.png" alt="말파스 초상화" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
               <div class="portrait-placeholder" style="display:none;">
                 <span>PORTRAIT II</span>
@@ -634,7 +652,6 @@
         <div class="char-card">
           <div class="portrait-frame">
             <div class="portrait-inner">
-              <!-- 같은 폴더에 beelzebub.png 파일을 넣으면 자동 표시됩니다 -->
               <img src="beelzebub.png" alt="벨제붑 초상화" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
               <div class="portrait-placeholder" style="display:none;">
                 <span>PORTRAIT III</span>
@@ -663,9 +680,74 @@
         </div>
       </section>
 
-      <!-- TAB 3: 세계관 및 공정 -->
+      <!-- TAB 3: 조연진 (NEW) -->
+      <section id="subchars" class="tab-content">
+        <h2>Ⅲ. 조력자 및 감시자</h2>
+
+        <!-- 세라핀 -->
+        <div class="char-card">
+          <div class="portrait-frame">
+            <div class="portrait-inner">
+              <img src="seraphine.png" alt="세라핀 초상화" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <div class="portrait-placeholder" style="display:none;">
+                <span>SERAPHINE</span>
+                seraphine.png<br>일러스트 영역
+              </div>
+            </div>
+          </div>
+          <div class="char-info">
+            <div class="char-header">
+              <span class="char-name">세라핀 (Seraphine)</span>
+              <span class="char-title">대신전 최연소 수석 예언관</span>
+            </div>
+            <div class="char-tags">
+              <span class="tag">#젊은야심가</span>
+              <span class="tag">#냉혹한뒷계획</span>
+              <span class="tag">#감시자</span>
+            </div>
+            <div class="char-quote">
+              “성혼의 완수는 곧 제국의 구원입니다. …그 뒤에 어떤 대가가 따르든 말이지요.”
+            </div>
+            <p>
+              은발과 날카로운 벽안의 젊은 사제. 표면적으로는 성혼 공정을 성심껏 돕지만, 예식이 끝나자마자 신부와 마왕을 대제단 결계에 통째로 봉인하려는 냉혹한 뒤통수 계획을 품고 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- 비올라 -->
+        <div class="char-card">
+          <div class="portrait-frame">
+            <div class="portrait-inner">
+              <img src="viola.png" alt="비올라 초상화" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <div class="portrait-placeholder" style="display:none;">
+                <span>VIOLA</span>
+                viola.png<br>일러스트 영역
+              </div>
+            </div>
+          </div>
+          <div class="char-info">
+            <div class="char-header">
+              <span class="char-name">비올라 (Viola)</span>
+              <span class="char-title">수석 아틀리에 공방주 · 정보상</span>
+            </div>
+            <div class="char-tags">
+              <span class="tag">#프로페셔널</span>
+              <span class="tag">#팩폭러</span>
+              <span class="tag">#정보통</span>
+            </div>
+            <div class="char-quote">
+              “마왕들이 바치는 예물이군요. 신부님을 향한 독이 될지 약이 될지 잘 골라보자고요.”
+            </div>
+            <p>
+              예복과 예물을 총괄하는 천재 디자이너이자 루멘 항구의 뒷골목 정보상. 마왕들의 속내를 날카롭게 짚어주며 유저에게 은근한 조언과 힌트를 건네는 든든한 조력자입니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: 세계관 및 5단계 공정 (원본 유지) -->
       <section id="world" class="tab-content">
-        <h2>Ⅲ. 세계관 용어 및 성혼 5단계 공정</h2>
+        <h2>Ⅳ. 세계관 용어 및 성혼 5단계 공정</h2>
         <ul class="guide-list">
           <li>
             <span class="guide-term">백아성 (The Alabaster Citadel)</span>
@@ -693,14 +775,53 @@
           </li>
           <li>
             <span class="guide-term"><span class="step-badge">STEP 05</span>식각의 대예식 (The Eclipse Ceremony)</span>
-            멸망 당일(D-0), 대제단에서 최종 신랑을 지목하고 입맞춤으로 성혼을 완결합니다.
+            멸망의 데드라인(D-0) 또는 그 이전이라도 1~4단계를 완수하면 대제단에서 최종 신랑을 지목하고 입맞춤으로 성혼을 완결합니다. (조기 성혼 가능)
           </li>
         </ul>
       </section>
 
-      <!-- TAB 4: 공명과 추리 가이드 -->
+      <!-- TAB 5: 핵심 영지 (NEW) -->
+      <section id="regions" class="tab-content">
+        <h2>Ⅴ. 아르테미아 신성제국 주요 무대</h2>
+        <p style="margin-bottom: 20px; text-align: center; color: var(--text-muted);">백아성에만 갇혀 있지 않고, 웨딩 준비를 핑계로 제국과 마계를 오가며 단서를 수집하세요.</p>
+        
+        <div class="region-grid">
+          <div class="region-box">
+            <span class="region-name">1. 백아성 (White Fang)</span>
+            <span class="region-tag">휴전 중립지 · 메인 거처</span>
+            <p class="region-desc">제국과 마계의 경계에 선 순백의 성채. 세 마왕이 머물며 성혼 공정이 진행되는 안전지대입니다.</p>
+          </div>
+          <div class="region-box">
+            <span class="region-name">2. 왕도 아르테미아</span>
+            <span class="region-tag">제국 수도 · 사교계와 살롱</span>
+            <p class="region-desc">대신전과 최고급 아틀리에가 밀집한 곳. 귀족들의 가면무도회나 드레스 가봉을 위해 방문합니다.</p>
+          </div>
+          <div class="region-box">
+            <span class="region-name">3. 루멘 항구도시</span>
+            <span class="region-tag">남부 무역항 · 암시장</span>
+            <p class="region-desc">마계 특산물과 희귀 보석이 밀거래되는 자유 항구. 마왕과 단둘이 예물 재료를 구하러 떠나는 무대입니다.</p>
+          </div>
+          <div class="region-box">
+            <span class="region-name">4. 솔라리스 온천 휴양지</span>
+            <span class="region-tag">동부 호수 · 황실 별장</span>
+            <p class="region-desc">100일의 압박에서 벗어나 마왕과 단둘이 휴식을 취하며 무장 해제된 속내를 엿보는 밀회 장소입니다.</p>
+          </div>
+          <div class="region-box">
+            <span class="region-name">5. 오르텐 북부 변경</span>
+            <span class="region-tag">북부 최전선 · 공백화 경계</span>
+            <p class="region-desc">하얀 허무가 실시간으로 밀려오는 얼어붙은 영지. 일식의 진실을 조사하기 위해 향하는 시리어스 구역입니다.</p>
+          </div>
+          <div class="region-box">
+            <span class="region-name">6. 마계 심연</span>
+            <span class="region-tag">악마의 영역 · 3단계 답사</span>
+            <p class="region-desc">업화의 성, 시간 정지 궁전, 붉은 연회저택. 각 마왕의 홈그라운드에서 진짜 과거를 파헤칩니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: 공명과 추리 가이드 (원본 유지) -->
       <section id="tips" class="tab-content">
-        <h2>Ⅳ. 성혼의 문양과 마왕 추리 가이드</h2>
+        <h2>Ⅵ. 성혼의 문양과 마왕 추리 가이드</h2>
         <ul class="guide-list">
           <li>
             <span class="guide-term">1. 피부 접촉과 공명(Resonance)</span>
@@ -738,13 +859,10 @@
       const overlay = document.getElementById('envelope-overlay');
       overlay.classList.add('opened');
 
-      // 브라우저 정책상 사용자 클릭 이벤트 내부에서 오디오 재생 가능
       bgMusic.play().then(() => {
         bgmBtn.classList.add('playing');
         bgmLabel.textContent = 'BGM ON';
-      }).catch(() => {
-        // 음원 파일이 아직 업로드되지 않은 경우 조용히 대기
-      });
+      }).catch(() => {});
     }
 
     // 우측 상단 BGM 토글 버튼
